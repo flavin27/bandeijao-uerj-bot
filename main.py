@@ -6,6 +6,12 @@ import json
 from scraper import Scraper
 from datetime import datetime
 
+data_hoje = datetime.now()
+dia_hoje = data_hoje.weekday()
+dias_da_semana = ['Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta', 'Sabado', 'Domingo']
+data_formatada = data_hoje.strftime("%d/%m/%Y")
+
+
 load_dotenv()
 
 consumer_key = os.getenv("API_KEY")
@@ -20,18 +26,15 @@ oauth = OAuth1Session(
     resource_owner_secret=access_token_secret,
 )
 
-scraper = Scraper()
-cardapio = scraper.getCardapioDia()
 
-data_hoje = datetime.now()
-dia_hoje = data_hoje.weekday()
-dias_da_semana = ['Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta', 'Sabado', 'Domingo']
-data_formatada = data_hoje.strftime("%d/%m/%Y")
-
-payload = {"text": f"{dias_da_semana[dia_hoje]} - {data_formatada} \n Saladas: {cardapio[0]} \n Prato Principal: {cardapio[1]} \n Ovolactovegetariano: {cardapio[2]} \n Guarnição: {cardapio[3]} \n Acompanhamentos: {cardapio[4]} \n Sobremesas: {cardapio[5]}"}
 
 
 if dia_hoje < 5:
+    scraper = Scraper()
+    cardapio = scraper.getCardapioDia()
+
+    payload = {"text": f"{dias_da_semana[dia_hoje]} - {data_formatada} \n Saladas: {cardapio[0]} \n Prato Principal: {cardapio[1]} \n Ovolactovegetariano: {cardapio[2]} \n Guarnição: {cardapio[3]} \n Acompanhamentos: {cardapio[4]} \n Sobremesas: {cardapio[5]}"}
+    
     response = oauth.post(
     "https://api.twitter.com/2/tweets",
     json=payload,
@@ -45,3 +48,10 @@ if dia_hoje < 5:
     print("Response code: {}".format(response.status_code))
     json_response = response.json()
     print(json.dumps(json_response, indent=4, sort_keys=True))
+
+texto = {"text": "vamo ver o venv"}
+
+oauth.post(
+    "https://api.twitter.com/2/tweets",
+    json=texto,
+)
