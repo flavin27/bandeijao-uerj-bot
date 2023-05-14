@@ -31,16 +31,17 @@ data_formatada = data_hoje.strftime("%d/%m/%Y")
 payload = {"text": f"{dias_da_semana[dia_hoje]} - {data_formatada} \n Saladas: {cardapio[0]} \n Prato Principal: {cardapio[1]} \n Ovolactovegetariano: {cardapio[2]} \n Guarnição: {cardapio[3]} \n Acompanhamentos: {cardapio[4]} \n Sobremesas: {cardapio[5]}"}
 
 
-response = oauth.post(
+if dia_hoje < 5:
+    response = oauth.post(
     "https://api.twitter.com/2/tweets",
     json=payload,
 )
 
-if response.status_code != 201:
-    raise Exception(
-        "Request returned an error: {} {}".format(response.status_code, response.text)
-    )
+    if response.status_code != 201:
+        raise Exception(
+            "Request returned an error: {} {}".format(response.status_code, response.text)
+        )
 
-print("Response code: {}".format(response.status_code))
-json_response = response.json()
-print(json.dumps(json_response, indent=4, sort_keys=True))
+    print("Response code: {}".format(response.status_code))
+    json_response = response.json()
+    print(json.dumps(json_response, indent=4, sort_keys=True))
