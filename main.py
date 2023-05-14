@@ -49,9 +49,3 @@ if dia_hoje < 5:
     json_response = response.json()
     print(json.dumps(json_response, indent=4, sort_keys=True))
 
-texto = {"text": "vamo ver o venv"}
-
-oauth.post(
-    "https://api.twitter.com/2/tweets",
-    json=texto,
-)
