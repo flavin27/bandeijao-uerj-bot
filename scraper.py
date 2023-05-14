@@ -59,7 +59,11 @@ class Scraper:
     def getCardapioDia(self):
         cardapio = self.scrape_data()
         dia_atual = self.getDiaSemana() 
-        cardapio_do_dia = cardapio[dia_atual - 1]
+        cardapio_do_dia = cardapio[dia_atual - 4]
         return cardapio_do_dia
+
+
+
+
 
 
