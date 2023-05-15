@@ -27,7 +27,7 @@ class Scraper:
         return dia_da_semana
     
     def scrape_data(self):
-        response = requests.get(self.url, headers=self.headers)
+        response = requests.get(self.url, headers=self.headers, verify=False)
         content = response.content.decode()
         normalized_content = self.normalize_text(content)
 
