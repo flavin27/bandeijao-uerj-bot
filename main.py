@@ -21,11 +21,8 @@ def main():
         print(response)
     else:
         client = Twitter()
-        text = {"text": "teste6"}
+        text = {"text": "teste333"}
         resposta = client.postTweet(text)
         print(resposta)
 
-def cronjob():
-    main()
-
-cronjob()
+main()
