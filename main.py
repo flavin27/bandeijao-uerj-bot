@@ -25,6 +25,4 @@ def main():
         resposta = client.postTweet(text)
         print(resposta)
 
-while True:
-    main()
-    time.sleep(24 * 60 * 60)
+main()
