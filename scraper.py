@@ -57,6 +57,7 @@ class Scraper:
         updated_array = [[remove_parentheses(string) for string in sublist] for sublist in array_strings]
 
         return updated_array
+    
     def getCardapioDia(self):
         cardapio = self.scrape_data()
         dia_atual = self.getDiaSemana() 
