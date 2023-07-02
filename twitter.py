@@ -24,10 +24,11 @@ class Twitter:
     
     def postTweet(self, payload):
         oauth = self.setOAuth()
-        response = oauth.post(
-            url= "https://api.twitter.com/2/tweets",
-            json=payload,
-        )
+        if isinstance(payload, dict):
+            response = oauth.post(
+                url="https://api.twitter.com/2/tweets",
+                json=payload,
+            )
         if response.status_code != 201:
             error_message = "Request returned an error: {} {}".format(response.status_code, response.text)
             error_response = {
