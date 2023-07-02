@@ -21,7 +21,7 @@ def main():
         print(response)
     else:
         client = Twitter()
-        text = {"text": "railway"}
+        text = {"text": "teste4"}
         resposta = client.postTweet(text)
         print(resposta)
 

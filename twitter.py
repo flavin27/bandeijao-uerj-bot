@@ -25,7 +25,7 @@ class Twitter:
     def postTweet(self, payload):
         oauth = self.setOAuth()
         response = oauth.post(
-            "https://api.twitter.com/2/tweets",
+            url= "https://api.twitter.com/2/tweets",
             json=payload,
         )
         if response.status_code != 201:
