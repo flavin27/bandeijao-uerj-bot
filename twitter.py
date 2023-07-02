@@ -12,6 +12,7 @@ class Twitter:
         self.consumer_secret = os.getenv("API_SECRET_KEY")
         self.access_token = os.getenv("ACCESS_TOKEN")
         self.access_token_secret = os.getenv("ACCESS_TOKEN_SECRET")
+        self.bearer_token = os.getenv("BEARER_TOKEN")
     
     def setOAuth(self):
         api = OAuth1Session(
@@ -24,11 +25,14 @@ class Twitter:
     
     def postTweet(self, payload):
         oauth = self.setOAuth()
-        if isinstance(payload, dict):
-            response = oauth.post(
-                url="https://api.twitter.com/2/tweets",
-                json=payload,
-            )
+        response = oauth.post(
+            url= "https://api.twitter.com/2/tweets",
+            json=payload,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer ${self.bearer_token}"
+            }
+        )
         if response.status_code != 201:
             error_message = "Request returned an error: {} {}".format(response.status_code, response.text)
             error_response = {
