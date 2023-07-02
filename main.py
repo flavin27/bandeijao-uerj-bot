@@ -25,4 +25,7 @@ def main():
         resposta = client.postTweet(text)
         print(resposta)
 
-main()
+def cronjob():
+    main()
+
+cronjob()
