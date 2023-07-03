@@ -1,7 +1,7 @@
 name: Run main.py everyday
 on:
   schedule:
-    - cron: "00 14 * * *" 
+    - cron: "31 18 * * *" 
 
 jobs:
   run:
