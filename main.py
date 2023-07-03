@@ -10,7 +10,7 @@ def main():
     dias_da_semana = ['Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta', 'Sabado', 'Domingo']
     data_formatada = data_hoje.strftime("%d/%m/%Y")
 
-    if dia_hoje > 5:
+    if dia_hoje < 5:
         scraper = Scraper()
         cardapio = scraper.getCardapioDia()
         client = Twitter()
