@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from requests_oauthlib import OAuth1Session
 import tweepy
 import os
+from os import path
 import json
 
 dir = os.path.dirname(__file__)
@@ -14,7 +15,6 @@ class Twitter:
         self.consumer_secret = os.environ['API_SECRET_KEY']
         self.access_token = os.environ['ACCESS_TOKEN']
         self.access_token_secret = os.environ['ACCESS_TOKEN_SECRET']
-        self.bearer_token = os.environ['BEARER_TOKEN']
     
     def setOAuth(self):
         auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret, self.access_token, self.access_token_secret)
