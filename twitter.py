@@ -1,6 +1,7 @@
 import requests
 from dotenv import load_dotenv
 from requests_oauthlib import OAuth1Session
+import tweepy
 import os
 import json
 
@@ -9,46 +10,34 @@ load_dotenv()
 
 class Twitter:
     def __init__(self):
-        self.consumer_key = os.getenv("API_KEY")
-        self.consumer_secret = os.getenv("API_SECRET_KEY")
-        self.access_token = os.getenv("ACCESS_TOKEN")
-        self.access_token_secret = os.getenv("ACCESS_TOKEN_SECRET")
-        self.bearer_token = os.getenv("BEARER_TOKEN")
+        self.consumer_key = os.environ['API_KEY']
+        self.consumer_secret = os.environ['API_SECRET_KEY']
+        self.access_token = os.environ['ACCESS_TOKEN']
+        self.access_token_secret = os.environ['ACCESS_TOKEN_SECRET']
+        self.bearer_token = os.environ['BEARER_TOKEN']
     
     def setOAuth(self):
-        api = OAuth1Session(
-            self.consumer_key,
-            client_secret=self.consumer_secret,
-            resource_owner_key=self.access_token,
-            resource_owner_secret=self.access_token_secret,
-        )
+        auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret, self.access_token, self.access_token_secret)
+        api = tweepy.API(auth)
         return api
     
     def postTweet(self, payload):
         oauth = self.setOAuth()
-        response = oauth.post(
-            url= "https://api.twitter.com/2/tweets",
-            json=payload,
-            headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer ${self.bearer_token}"
+        response = oauth.update_status(payload)
+        if response:
+            response_data = {
+                "status": "success",
+                "message": "Tweet posted successfully",
+                "tweet_id": response.id_str,
+                "tweet_text": response.text,
             }
-        )
-        if response.status_code != 201:
-            error_message = "Request returned an error: {} {}".format(response.status_code, response.text)
-            error_response = {
+        else:
+            error_message = "Failed to post tweet"
+            response_data = {
                 "status": "error",
                 "message": error_message,
-                # Outras informações relevantes
             }
-            return json.dumps(error_response)
-
-        success_response = {
-            "status": "success",
-            "message": "Tweet posted successfully",
-            # Outras informações relevantes
-        }
-        return json.dumps(success_response)
+        return json.dumps(response_data)
     
 
 
