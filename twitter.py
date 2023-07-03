@@ -4,6 +4,7 @@ from requests_oauthlib import OAuth1Session
 import os
 import json
 
+dir = os.path.dirname(__file__)
 load_dotenv()
 
 class Twitter:
