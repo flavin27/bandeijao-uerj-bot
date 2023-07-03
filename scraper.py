@@ -3,6 +3,9 @@ import requests
 import unicodedata
 import re
 from datetime import datetime
+import urllib3
+
+urllib3.disable_warnings()
 
 class Scraper:
     def __init__(self):
