@@ -19,10 +19,5 @@ def main():
         
         response = client.postTweet(payload)
         print(response)
-    else:
-        client = Twitter()
-        text = "segredoshhhh"
-        resposta = client.postTweet(text)
-        print(resposta)
 
 main()
